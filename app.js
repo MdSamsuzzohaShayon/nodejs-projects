@@ -1,18 +1,17 @@
+require('dotenv').config({path: "./config/.env"});
 // Intro & Setup
 // https://www.youtube.com/watch?v=-3vvxn78MH4&index=2&list=PL55RiY5tL51rajp7Xr_zk-fCFtzdlGKUp
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
 const logger = require('morgan');
-const expressHbs = require('express-handlebars');
+const {engine} = require('express-handlebars');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
-const validator = require('express-validator');
-const MongoStore = require('connect-mongo')(session); //  IT SHOULD BE BELOW THE EXPRESS SESSION MIDDLEWARE
+const MongoStore = require('connect-mongo'); //  IT SHOULD BE BELOW THE EXPRESS SESSION MIDDLEWARE
 
 
 const indexRouter = require('./routes/index');
@@ -30,8 +29,7 @@ const app = express();
 
 
 
-
-mongoose.connect('mongodb://localhost/shopping'); //IF TESTAROO DB IS ALREADY EXIST THEN OK. OR IF IT ISN'T IT WILL CREATE AUTOMATICLY
+mongoose.connect(process.env.MONGO_URI); //IF TESTAROO DB IS ALREADY EXIST THEN OK. OR IF IT ISN'T IT WILL CREATE AUTOMATICLY
 mongoose.connection.once('open', function () {
   console.log("Connection has been made now let's make fireaowks");
 }).on('error', function (error) {
@@ -54,12 +52,9 @@ require('./config/passport');
 
 
 // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-app.engine('.hbs', expressHbs({
-  defaultLayout: 'layout',
-  extname: '.hbs'
-}));
+app.engine(".hbs", engine({extname: '.hbs'}));
 app.set('view engine', '.hbs');
+app.set('views', path.join(__dirname, 'views'));
 
 
 //setup by express
@@ -70,20 +65,12 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 
-
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
-app.use(validator());
-
 // MAKE SURE THIS SESSTION SETUP IS BELOW THE COOKIE PARSER SETUP
 app.use(session({
-  secret: 'mysupersecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false, 
-  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  store: MongoStore.create({mongoUrl: process.env.MONGO_URI}),
   cookie: {maxAge: 180 * 60 * 1000}
 })); //IF resave IS SET TO TRUE THIS WILL SAVE TO THE SERVER IN EVERY REQUEST
 
