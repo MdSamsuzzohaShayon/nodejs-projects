@@ -19,8 +19,19 @@ router.get('/', function (req, res, next) {
       // For example, slice(1,4) extracts the second element through the fourth element (elements indexed 1, 2, and 3).
       // know more about slice methods
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/slice
-      productChunks.push(docs.slice(i, i + chunkSize));
+
+      const pcmap = docs.slice(i, i + chunkSize).map(pp=>{
+        return {
+          imagePath: pp.imagePath,
+          title: pp.title,
+          description: pp.description,
+          price: pp.price
+        }
+      });
+      // console.log(pcmap);
+      productChunks.push(pcmap);
     }
+
     res.render('shop/index', {
       title: 'Shoping Cart',
       products: productChunks
@@ -32,10 +43,10 @@ router.get('/', function (req, res, next) {
 router.get('/add-to-cart/:id', (req, res, next) => {
   const productId = req.params.id;
   //CREATE A NEW ITEM  AND INTREGATE WITH OLD ONE
-  let cart = new Cart(req.session.cart ? req.session.cart : {items: {}}); // IF I HAVE A CART THEN I WILL PASS 
+  let cart = new Cart(req.session.cart ? req.session.cart : { items: {} }); // IF I HAVE A CART THEN I WILL PASS 
 
-  Product.findById(productId, (err, product)=>{
-    if(err){
+  Product.findById(productId, (err, product) => {
+    if (err) {
       return res.redirect('/');
     }
     cart.add(product, product.id);
