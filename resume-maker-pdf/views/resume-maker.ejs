@@ -1,0 +1,65 @@
+<!-- FORM START -->
+<div class="container" class="text-<%= theme %>">
+    <p class="text-<%= theme %>">You are using <%= theme %> theme</p>
+    <form method="POST" action="/resume-maker">
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="validationTooltip01">Full Name</label>
+                <input type="text" name="name" class="form-control" id="validationTooltip01">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="validationTooltip02">Phone Number</label>
+                <input type="text" class="form-control" name="phone" id="validationTooltip02">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="validationTooltip02">E-mail</label>
+                <input type="email" class="form-control" name="email" id="validationTooltip02">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="validationTooltip01">Father's Name</label>
+                <input type="text" name="f_name" class="form-control" id="validationTooltip01">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="validationTooltip02">Mother's Name</label>
+                <input type="text" class="form-control" name="m_name" id="validationTooltip02">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="validationTooltip02">Date of Birth</label>
+                <input type="text" class="form-control" name="birth" id="validationTooltip02">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">About Me</label>
+            <textarea class="form-control" name="about" id="exampleFormControlTextarea1" rows="2"></textarea>
+        </div>
+        <h4>Expertise Area</h4>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="validationTooltip01">Exp. 1</label>
+                <input type="text" name="exp_1" class="form-control" id="validationTooltip01">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="validationTooltip02">Exp. 2</label>
+                <input type="text" name="exp_2" class="form-control" id="validationTooltip02">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="validationTooltip02">Exp. 3</label>
+                <input type="text" name="exp_3" class="form-control" id="validationTooltip02">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">IT Skills</label>
+            <input type="text" name="skill" class="form-control" placeholder="This would be a comma seperated list"
+                id="validationTooltip01">
+        </div>
+        <div class="form-group">
+            <select name="theme" id="" hidden>
+                <option value="<%= theme %>"><%= theme %></option>
+            </select>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>
