@@ -1,1 +1,3 @@
 /node_modules
+/react-node-pdf-maker/client/node_modules
+/react-node-pdf-maker/server/node_modules
