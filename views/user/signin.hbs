@@ -1,0 +1,25 @@
+<div class="col-sm-6">
+    <h1>Sign In</h1>
+    {{#if hasErrors}}
+    <div class="alert alert-danger">
+        {{#each messages}}
+        <p>{{this}}</p>
+        {{/each}}
+    </div>
+    {{/if}}
+    <form action="/user/signin" method="post">
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="enter your password">
+        </div>
+        {{!-- MAKE SURE THE NAME _csrf EXECTLY SAME IN HERE. BY THIS NAME THE PACKAGE WILL IDENTIFY --}}
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+        <button type="submit" class="btn btn-outline-success">Sign In</button>
+
+    </form>
+    {{!-- {{csrfToken}} --}}
+</div>

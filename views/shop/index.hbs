@@ -1,0 +1,23 @@
+{{#each products}}
+<div class="row  mt-3">
+    {{!-- THIS WILL BE INDIVIDUAL PRODUCT FOR EACH ROW --}}
+    {{!-- THIS KEYWORDS MEANS THE CURRENT ELEMENT OT PRODUCTS ARRAY --}}
+    {{#each this}}
+    <div class="col-sm-6 col-md-4">
+        <div class="card">
+            <img class="img-responsive" src="{{ this.imagePath }}" class="card-img-top"
+                alt="Sony Xperia">
+            <div class="card-body">
+                <h5 class="card-title"><b>{{this.title}}</b></h5>
+                <p class="card-text">{{this.description}}</p>
+            </div>
+            <div>
+                <div class="price text-center">${{this.price}}</div>
+                <a href="/add-to-cart/{{ this._id }}" class="btn btn-success pull-right" role="button">Add to Cart</a>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+{{/each}}
+
