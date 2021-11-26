@@ -1,0 +1,15 @@
+{
+  "name": "express-html-pdf",
+  "version": "1.0.0",
+  "description": "[Tutorial](https://www.youtube.com/watch?v=bt1tOhUYxvM&t=255s)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-pdf": "^1.2.2"
+  }
+}
