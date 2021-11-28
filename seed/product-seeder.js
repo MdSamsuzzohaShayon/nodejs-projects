@@ -1,9 +1,13 @@
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../config/.env') });
 const Product = require('../models/product');
 const mongoose = require('mongoose');
 
+
+
 //SEEDING MEANS ADD DATA TO DATABASE
 
-mongoose.connect('mongodb://localhost/shopping'); //IF TESTAROO DB IS ALREADY EXIST THEN OK. OR IF IT ISN'T IT WILL CREATE AUTOMATICLY
+mongoose.connect(process.env.MONGO_URI); //IF TESTAROO DB IS ALREADY EXIST THEN OK. OR IF IT ISN'T IT WILL CREATE AUTOMATICLY
 mongoose.connection.once('open', function () {
     console.log("Connection has been made now let's make fireaowks");
 }).on('error', function (error) {
@@ -52,7 +56,7 @@ const products = [
 
 
 
-Product.remove().then(result => exit()).catch(err => console.log(err));
+// Product.remove().then(result => exit()).catch(err => console.log(err));
 
 
 Product.insertMany(products).then(result => exit()).catch(err => console.log(err));

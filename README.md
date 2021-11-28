@@ -78,3 +78,23 @@ MongoDB session store for Connect and Express.
 
 # *problem*
 https://www.youtube.com/watch?v=_pVKGCzbMwg&index=13&list=PL55RiY5tL51rajp7Xr_zk-fCFtzdlGKUp
+
+
+
+
+### Docker commands
+
+```
+ node app.js 
+ sudo docker rm node-ecom -f
+ sudo docker images
+ sudo docker image rm node-ecom-image -f
+ sudo docker image prune
+ sudo docker ps
+ sudo docker images
+ sudo docker build -t node-ecom-image .
+ sudo docker rm node-ecom -f
+ sudo docker run -d --name node-ecom -p 4000:3000 node-ecom-image
+ sudo docker exec -it node-ecom sh
+
+```

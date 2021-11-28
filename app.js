@@ -118,4 +118,8 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-module.exports = app;
+
+
+
+
+app.listen(process.env.PORT, () => console.log('Server is running on: ' + process.env.PORT));
