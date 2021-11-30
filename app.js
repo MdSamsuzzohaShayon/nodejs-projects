@@ -21,11 +21,11 @@ const app = express();
 
 
 
+// HI THERE HOW ARE YOU - MADE SOME CHANGES 
 
 
 
-
-
+console.log("MONGO URI - ",process.env.MONGO_URI);
 
 
 

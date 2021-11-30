@@ -96,5 +96,17 @@ https://www.youtube.com/watch?v=_pVKGCzbMwg&index=13&list=PL55RiY5tL51rajp7Xr_zk
  sudo docker rm node-ecom -f
  sudo docker run -d --name node-ecom -p 4000:3000 node-ecom-image
  sudo docker exec -it node-ecom sh
+ sudo docker logs node-ecom
 
 ```
+ - Final run for docker container
+ ```
+ sudo docker run --env-file ./config/.env -v $(pwd):/app -v /app/node_modules -v /config/.env -p 4000:3000 -d --name node-ecom node-ecom-image
+ ```
+ - `--env-file ./config/.env` SETTING ENVIRONMENT VARIABLE FROM FILE
+ - `-v $(pwd):/app` BIND MOUNT VOLUMES (THIS IS FOR DEVELOPMENT VERSION ONLY BECAUSE IT'S NOW SYNCING ALL FILES INCLUDING FILES FROM .GITIGNORE WHICH WE DON'T WANT FOR DEVELOPMENT PURPOSE)
+ - `-v /app/node_modules` THIS VOLUMENT IS FOR IGNORE SYNCING - THAT MEANS SYNC ALL FILES EXCLUDING NODE_MODULES
+ - `-p 4000:3000` SETTING PORT NUMBER FOR OUR CONTAINER - WE WILL SEND REQUEST FROM LOCALHOST TO 4000 PORT NUMBER BUT THIS WILL FORWARD THAT PORT WITH 3000 PORT IN CONTAINER - THAT MEANS WE HAVE TO WORK WITH 3000 INSIDE CONTAINER AND 4000 ON LOCAL MACHINE
+ - `-d` DETACH MODE WILL RUN OUR CONTAINER IN BACKGROUND SO WE CAN PLAY WITH TERMINAL
+ - `-name node-ecom` SETTING A NAME FOR OUR CONTAINER
+ - `node-ecom-image` USING OUR EXISTING IMAGE WHICH WE BUILT

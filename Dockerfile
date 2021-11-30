@@ -6,8 +6,14 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY . .
+COPY . ./
 
-EXPOSE 3000
+ENV PORT 3000
+EXPOSE $PORT
 
-CMD ["node", "app.js"]
+
+
+# THIS IS FOR PRODUCTION 
+# CMD ["node", "app.js"]
+
+CMD ["npm", "start"]

@@ -1,4 +1,7 @@
+# THOSE FILE WILL NOT BE INCLUDED IN DOCKER IMAGE 
+
 node_modules
+/config/.env
 npm-debug.log
 Dockerfile
 .dockerignore
