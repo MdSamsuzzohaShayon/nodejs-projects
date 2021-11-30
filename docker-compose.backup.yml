@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  
+  node-ecom:
+    build: .
+    image: "node-ecom-image:1.0.0"
+    container_name: node-ecom
+    ports:
+      - "4000:3000"
+    volumes:
+      - ./:/app:ro
+      - /app/node_modules
+      - /config/.env
+    env_file:
+      - ./config/.env

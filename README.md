@@ -110,3 +110,16 @@ https://www.youtube.com/watch?v=_pVKGCzbMwg&index=13&list=PL55RiY5tL51rajp7Xr_zk
  - `-d` DETACH MODE WILL RUN OUR CONTAINER IN BACKGROUND SO WE CAN PLAY WITH TERMINAL
  - `-name node-ecom` SETTING A NAME FOR OUR CONTAINER
  - `node-ecom-image` USING OUR EXISTING IMAGE WHICH WE BUILT
+
+ - Using docker compose instead of docker itself for development
+ ```
+ sudo docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+ sudo docker-compose -f docker-compose.yml -f docker-compose.dev.yml down -v
+ ```
+ - For production
+ ```
+ sudo docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+ sudo docker-compose -f docker-compose.yml -f docker-compose.prod.yml down -v
+ ```
+
+

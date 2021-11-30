@@ -1,4 +1,3 @@
-require('dotenv').config({path: "./config/.env"});
 // Intro & Setup
 // https://www.youtube.com/watch?v=-3vvxn78MH4&index=2&list=PL55RiY5tL51rajp7Xr_zk-fCFtzdlGKUp
 const createError = require('http-errors');
@@ -6,7 +5,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const {engine} = require('express-handlebars');
+const { engine } = require('express-handlebars');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
@@ -22,10 +21,9 @@ const app = express();
 
 
 // HI THERE HOW ARE YOU - MADE SOME CHANGES 
+// console.log("EVN variables - \n", process.env.NODE_ENV);
 
 
-
-console.log("MONGO URI - ",process.env.MONGO_URI);
 
 
 
@@ -52,7 +50,7 @@ require('./config/passport');
 
 
 // view engine setup
-app.engine(".hbs", engine({extname: '.hbs'}));
+app.engine(".hbs", engine({ extname: '.hbs' }));
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -69,9 +67,9 @@ app.use(cookieParser());
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: false, 
-  store: MongoStore.create({mongoUrl: process.env.MONGO_URI}),
-  cookie: {maxAge: 180 * 60 * 1000}
+  saveUninitialized: false,
+  store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
+  cookie: { maxAge: 180 * 60 * 1000 }
 })); //IF resave IS SET TO TRUE THIS WILL SAVE TO THE SERVER IN EVERY REQUEST
 
 app.use(flash()); // FLASH MUST BE INITILIZE BELOW THE EXPRESS SESSION SETUP

@@ -4,7 +4,14 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+ARG NODE_ENV
+
+# RUN npm install 
+# ONLY PRODUCTION FLAG WILL PREVENT TO INSTALL ANY DEV DEPENDENCIES 
+RUN if [ "$NODE_ENV" = "development" ]; \
+    then npm install; \
+    else npm install --only=production; \
+    fi
 
 COPY . ./
 
@@ -16,4 +23,4 @@ EXPOSE $PORT
 # THIS IS FOR PRODUCTION 
 # CMD ["node", "app.js"]
 
-CMD ["npm", "start"]
+CMD ["node", "app.js"]
