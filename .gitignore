@@ -1,3 +1,5 @@
-gridfs/node_modules
-save-binary-to-mongodb/node_modules
+/gridfs/node_modules
+/save-binary-to-mongodb/node_modules
+/node-react-cloudinary/client/node_modules
+/node-react-cloudinary/server/node_modules
 /node_modules
