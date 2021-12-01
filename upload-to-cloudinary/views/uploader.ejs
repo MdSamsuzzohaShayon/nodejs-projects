@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+</head>
+
+<body>
+    <div id="whole-form" >
+        <form class="form" method="POST" action="/api/upload" enctype="multipart/form-data">
+            <input type="file" name="image" class="form-input" id="img-file" />
+            <button className="btn">Submit</button>
+        </form>
+        <div>Preview Image</div>
+    </div>
+    <script>
+        // const inputFile = document.getElementById('img-file');
+        // const previewFile = file => {
+        //     const reader = new FileReader();
+        //     console.log("file reader", reader);
+        //     reader.readAsDataURL(file);
+        //     console.log("reader result: ", reader.result[0]);
+        //     // reader.onloadend = () => {
+
+        //     // }
+        // }
+        // document.getElementById('whole-form').addEventListener('change', previewFile, false);
+    </script>
+</body>
+
+</html>
