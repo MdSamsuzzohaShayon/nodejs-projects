@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CRUD</title>
+    <link rel="stylesheet" href="/css/semantic.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="site">
+        <div class="ui massive menu">
+            <div class="ui container">
+                <div class="item"><a href="/">Home</a></div>
+                <div class="item">About</div>
+                <div class="item">Contact</div>
+                <div class="item">Blog</div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div class="ui container">
+            <form id="form" action="/edit/<%= team._id %>" class="ui form" method="POST">
+                <div class="three fields">
+                    <div class="field">
+                        <label for="label" class="ui header green">Enter club name</label>
+                        <input type="text" name="name" placeholder="Enter club name" value="<%= team.name %>"  id="name">
+                    </div>
+                    <div class="field">
+                        <label for="label" class="ui header green">Enter players name</label>
+                        <input type="text" name="players" placeholder="Enter players name" value="<%= team.players %>" id="players">
+                    </div>
+                    <div class="field">
+                        <label for="label" class="ui header green">Enter coach name</label>
+                        <input type="text" name="coach" placeholder="Enter coach name" value="<%= team.coach %>" id="coach">
+                    </div>
+                </div>
+                <!-- <div class=" one fields"> -->
+                    <div class="field fluid">
+                        <button type="submit" class="ui button fluid green">Save</button>
+                    </div>
+                <!-- </div> -->
+            </form>
+            <br>
+            <br>
+            <br>
+        </div>
+    </div>
+</body>
+
+</html>
