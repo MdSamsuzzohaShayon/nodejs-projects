@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+</head>
+
+<body>
+    <div id="player-list"> </div>
+    <h2>Add Player</h2>
+    <form>
+        <input type="text" placeholder="name" id="player_name" name="name">
+        <br>
+        <input type="text" placeholder="address" id="player_address" name="address">
+        <br>
+        <button id="add">Add</button>
+    </form>
+    <script>
+
+
+        const playerName = document.getElementById('player_name');
+        const playerAddress = document.getElementById('player_address');
+        const add = document.getElementById("add");
+        const playerList = document.getElementById('player-list');
+        const players = [];
+
+        const showPlayers = (players) => {
+            players.forEach((player, i) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = player.name + player.address;
+                playerList.appendChild(listItem);
+            });
+        }
+
+        showPlayers(players);
+
+        const fetchPlayers = async () => {
+            const response = await fetch('http://localhost:3000');
+            const text = await response.text();
+            const json = JSON.parse(text);
+            players.push(json.players);
+            showPlayers(json.players);
+        }
+        // fetchPlayers();
+        const formData = new FormData();
+        formData.append("name", "val");
+
+
+
+
+        const addPlayer = async () => {
+            // for (let pair of formData.entries()) {
+            //     console.log(pair);
+            // }
+
+            try {
+
+                const response = await fetch('http://localhost:8000/add',
+                    {
+                        method: "POST",
+                        // headers: { "Content-Type": 'application/json' },
+                        body: formData
+                    });
+                // console.log(response);
+                const text = await response.text();
+                const json = JSON.parse(text);
+                // console.log(json);
+
+            } catch (error) {
+                console.log(error);
+            }
+            // players.push(json.players);
+            // showPlayers(json.players);
+            // formData.delete()
+        }
+        add.addEventListener('click', e => {
+            e.preventDefault();
+
+            addPlayer();
+
+        });
+    </script>
+</body>
+
+</html>
