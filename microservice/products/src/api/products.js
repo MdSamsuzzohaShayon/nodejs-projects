@@ -1,8 +1,10 @@
 const ProductService = require('../services/product-service');
-const { PublishCustomerEvent, PublishShoppingEvent } = require('../utils');
+// const { PublishCustomerEvent, PublishShoppingEvent } = require('../utils'); // FOR DEVELOPMENT
+const { PublishMessage } = require('../utils');
+const { CUSTOMER_BINDING_KEY, SHOPPING_BINDING_KEY } = require('../config');
 const UserAuth = require('./middlewares/auth')
 
-module.exports = (app) => {
+module.exports = (app, channel) => {
 
     const service = new ProductService();
 
@@ -65,13 +67,14 @@ module.exports = (app) => {
     app.put('/wishlist', UserAuth, async (req, res, next) => {
 
         const { _id } = req.user;
-        
-        
+
+
         try {
             //                                              (userId, { productId, qty }, event)
             const { data } = await service.GetProductPayload(_id, { productId: req.body._id, qty: 1 }, "ADD_TO_WISHLIST");
             // console.log( "HIT------", data);
-            PublishCustomerEvent(data);
+            // PublishCustomerEvent(data); // FOR DEVELOPMENT
+            PublishMessage(channel, CUSTOMER_BINDING_KEY, JSON.stringify(data));
             return res.status(200).json(data.data.product);
         } catch (err) {
             next(err)
@@ -85,7 +88,8 @@ module.exports = (app) => {
 
         try {
             const { data } = await service.GetProductPayload(_id, { productId }, "REMOVE_FROM_WISHLIST");
-            PublishCustomerEvent(data);
+            // PublishCustomerEvent(data); // FOR DEVELOPMENT
+            PublishMessage(channel, CUSTOMER_BINDING_KEY, JSON.stringify(data));
             return res.status(200).json(data.data.product);
         } catch (err) {
             next(err)
@@ -93,24 +97,26 @@ module.exports = (app) => {
     });
 
 
-    app.put('/cart',UserAuth, async (req,res,next) => {
-        
+    app.put('/cart', UserAuth, async (req, res, next) => {
+
         const { _id } = req.user;
-        
-        try {     
 
-            const { data } = await  service.GetProductPayload(_id, { productId: req.body._id, qty: req.body.qty },'ADD_TO_CART') 
+        try {
 
-            PublishCustomerEvent(data);
-            PublishShoppingEvent(data)
+            const { data } = await service.GetProductPayload(_id, { productId: req.body._id, qty: req.body.qty }, 'ADD_TO_CART')
+
+            // PublishCustomerEvent(data); // FOR DEVELOPMENT
+            PublishMessage(channel, CUSTOMER_BINDING_KEY, JSON.stringify(data));
+            // PublishShoppingEvent(data)  // FOR DEVELOPMENT
+            PublishMessage(channel, SHOPPING_BINDING_KEY, JSON.stringify(data));
 
             const response = {
                 product: data.data.product,
-                unit: data.data.qty 
+                unit: data.data.qty
             }
-    
+
             return res.status(200).json(response);
-            
+
         } catch (err) {
             next(err)
         }
@@ -119,12 +125,14 @@ module.exports = (app) => {
     app.delete('/cart/:id', UserAuth, async (req, res, next) => {
 
         const { _id } = req.user;
-        const {productId} = req.params;
+        const { productId } = req.params;
 
         try {
-            const { data } = await service.GetProductPayload(_id, { productId}, "REMOVE_FROM_CART");
-            PublishCustomerEvent(data);
-            PublishShoppingEvent(data);
+            const { data } = await service.GetProductPayload(_id, { productId }, "REMOVE_FROM_CART");
+            // PublishCustomerEvent(data); // FOR DEVELOPMENT
+            PublishMessage(channel, CUSTOMER_BINDING_KEY, JSON.stringify(data));
+            // PublishShoppingEvent(data)  // FOR DEVELOPMENT
+            PublishMessage(channel, SHOPPING_BINDING_KEY, JSON.stringify(data));
             const response = {
                 product: data.data.product,
                 unit: data.data.qty

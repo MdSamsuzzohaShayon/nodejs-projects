@@ -1,8 +1,9 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const needle = require('needle');
+// const needle = require('needle'); // development
+const amqplib = require('amqplib');
 
-const { APP_SECRET } = require('../config');
+const { APP_SECRET, MESSAGE_BROKER_URL, EXCHANGE_NAME } = require('../config');
 
 //Utility functions
 module.exports.GenerateSalt = async () => {
@@ -46,6 +47,9 @@ module.exports.FormateData = (data) => {
 }
 
 
+
+/*
+// ONLY FOR DEVELOPMENT PURPOSE
 module.exports.PublishCustomerEvent = async (payload) => {
         // console.log("pcePayload - ", payload);
         // await needle.post('http://localhost:8000/customer/app-event', { payload });
@@ -61,11 +65,12 @@ module.exports.PublishCustomerEvent = async (payload) => {
         });
 }
 
+// ONLY FOR DEVELOPMENT PURPOSE
 module.exports.PublishShoppingEvent = async (payload) => {
         const options = {
                 headers: { 'Content-Type': 'application/json' }
         }
-        
+
         needle.post('http://localhost:8000/shopping/app-events', payload, options, function (err, res, body) {
                 // needle will read the file and include it in the form-data as binary
                 if (err) throw err;
@@ -73,3 +78,47 @@ module.exports.PublishShoppingEvent = async (payload) => {
                 // console.log("Shopping - ",{resBody: res.body, msg: res.statusMessage, code: res.statusCode});
         });
 }
+*/
+
+
+
+
+// MESSAGE BROKER - RABBIT MQ
+
+// CREATE A CHANNEL
+module.exports.CreateChannel = async () => {
+        try {
+                const connection = await amqplib.connect(MESSAGE_BROKER_URL);
+                const channel = await connection.createChannel();
+                await channel.assertExchange(EXCHANGE_NAME, 'direct', false);
+                return channel;
+        } catch (err) {
+                throw new Error(`Error in CreateChannel from utils/index.js - ${err}`);
+        }
+}
+
+// PUBLISH MESSAGES
+module.exports.PublishMessage = async (channel, binding_key, message) => {
+        try {
+               await channel.publish(EXCHANGE_NAME, binding_key, Buffer.from(message));
+        } catch (err) {
+                throw new Error(`Error in PublishMessage  from utils/index.js - ${err}`);
+        }
+}
+
+
+// SUBSCRIBE MESSAGES 
+module.exports.SubscribeMessage = async (channel, service, binding_key) => {
+        try {
+                const appQueue = await channel.assertQueue(QUEUE_NAME);
+                channel.bindQueue(appQueue.queue, EXCHANGE_NAME, binding_key);
+                channel.consume(appQueue.queue, data=>{
+                        console.log("Data receved");
+                        console.log(data.content.toString());
+                        console.log(data);
+                })
+         } catch (err) {
+                 throw new Error(`Error in SubscribeMessage  from utils/index.js - ${err}`);
+         }
+}
+
