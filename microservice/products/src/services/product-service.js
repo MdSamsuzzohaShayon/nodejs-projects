@@ -83,6 +83,8 @@ class ProductService {
                 event,
                 data: { userId, product, qty }
             };
+            // console.log("payload - ", payload);
+            // console.log("format data - ", FormateData(payload));
             return FormateData(payload);
         } else {
             return FormateData({ error: "No product available" });

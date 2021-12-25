@@ -47,9 +47,29 @@ module.exports.FormateData = (data) => {
 
 
 module.exports.PublishCustomerEvent = async (payload) => {
-        needle.post('http://localhost:8000/customer/app-event', { payload });
+        // console.log("pcePayload - ", payload);
+        // await needle.post('http://localhost:8000/customer/app-event', { payload });
+        const options = {
+                headers: { 'Content-Type': 'application/json' }
+        }
+
+        needle.post('http://localhost:8000/customer/app-events', payload, options, function (err, res, body) {
+                // needle will read the file and include it in the form-data as binary
+                if (err) throw err;
+                // console.log("Customer payload - ",payload);
+                // console.log("Customer - ",res.body);
+        });
 }
 
 module.exports.PublishShoppingEvent = async (payload) => {
-        needle.post('http://localhost:8000/shopping/app-event', { payload });
+        const options = {
+                headers: { 'Content-Type': 'application/json' }
+        }
+        
+        needle.post('http://localhost:8000/shopping/app-events', payload, options, function (err, res, body) {
+                // needle will read the file and include it in the form-data as binary
+                if (err) throw err;
+                // console.log("Shopping payload - ",payload);
+                // console.log("Shopping - ",{resBody: res.body, msg: res.statusMessage, code: res.statusCode});
+        });
 }

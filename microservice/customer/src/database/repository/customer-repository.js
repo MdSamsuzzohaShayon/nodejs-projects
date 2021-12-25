@@ -76,6 +76,13 @@ class CustomerRepository {
     }
 
     async AddWishlistItem(customerId, { _id, name, desc, price, available, banner }) {
+        // console.log("customerId", customerId);
+        // console.log("_id", _id);
+        // console.log("name", name);
+        // console.log("desc", desc);
+        // console.log("price", price);
+        // console.log("available", available);
+        // console.log("banner", banner);
         const product = {
             _id,
             name,
@@ -84,6 +91,7 @@ class CustomerRepository {
             available,
             banner
         };
+        // console.log("Product - ", product);
         try {
             const profile = await CustomerModel.findById(customerId).populate('wishlist');
 
@@ -124,24 +132,27 @@ class CustomerRepository {
 
 
     async AddCartItem(customerId, { _id, name, price, banner }, qty, isRemove) {
+        // console.log("Manage Cart - ", { customerId, _id, name, price, banner, qty, isRemove });
 
         try {
 
-            const profile = await CustomerModel.findById(customerId).populate('cart');
+            const profile = await CustomerModel.findById(customerId);
 
+            
             if (profile) {
 
                 const cartItem = {
-                    product:  { _id, name, price, banner },
+                    product: { _id, name, price, banner },
                     unit: qty,
                 };
 
                 let cartItems = profile.cart;
-
+                // console.log("cartItems before - ", cartItems);
+                
                 if (cartItems.length > 0) {
                     let isExist = false;
                     cartItems.map(item => {
-                        if (item.product._id.toString() === product._id.toString()) {
+                        if (item.product._id.toString() === _id.toString()) {
                             if (isRemove) {
                                 cartItems.splice(cartItems.indexOf(item), 1);
                             } else {
@@ -150,15 +161,17 @@ class CustomerRepository {
                             isExist = true;
                         }
                     });
-
+                    
                     if (!isExist) {
                         cartItems.push(cartItem);
                     }
                 } else {
                     cartItems.push(cartItem);
                 }
+                // console.log("cartItems after - ", cartItems);
 
                 profile.cart = cartItems;
+                // console.log("manage cart - customer profile - ", profile);
 
                 const cartSaveResult = await profile.save();
 

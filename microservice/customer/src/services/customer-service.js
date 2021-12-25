@@ -112,7 +112,9 @@ class CustomerService {
 
     async AddToWishlist(customerId, product) {
         try {
+
             const wishlistResult = await this.repository.AddWishlistItem(customerId, product);
+            // console.log(customerId, product, wishlistResult);
             return FormateData(wishlistResult);
 
         } catch (err) {
@@ -143,16 +145,18 @@ class CustomerService {
     // COMMUNICATION WITH OTHER SERVICE - PRODUCT, SHOPPING  
     async SubscribeEvents(payload) {
 
+        // console.log("Payload - ", payload);
         const { event, data } = payload;
-
+        
         const { userId, product, order, qty } = data;
-
+        
         switch (event) {
             case 'ADD_TO_WISHLIST':
+                this.AddToWishlist(userId, product);
             case 'REMOVE_FROM_WISHLIST':
-                this.AddToWishlist(userId, product)
                 break;
             case 'ADD_TO_CART':
+                // console.log("Customer-service - ", {userId, product, qty, bol: false});
                 this.ManageCart(userId, product, qty, false);
                 break;
             case 'REMOVE_FROM_CART':
@@ -160,9 +164,6 @@ class CustomerService {
                 break;
             case 'CREATE_ORDER':
                 this.ManageOrder(userId, order);
-                break;
-            case 'TEST':
-                console.log("Subscriber");
                 break;
             default:
                 break;

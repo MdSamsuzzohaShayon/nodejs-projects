@@ -65,10 +65,12 @@ module.exports = (app) => {
     app.put('/wishlist', UserAuth, async (req, res, next) => {
 
         const { _id } = req.user;
-
-
+        
+        
         try {
-            const { data } = await service.GetProductPayload(_id, { productId: req.body._id }, "ADD_TO_WISHLIST");
+            //                                              (userId, { productId, qty }, event)
+            const { data } = await service.GetProductPayload(_id, { productId: req.body._id, qty: 1 }, "ADD_TO_WISHLIST");
+            // console.log( "HIT------", data);
             PublishCustomerEvent(data);
             return res.status(200).json(data.data.product);
         } catch (err) {
@@ -91,20 +93,24 @@ module.exports = (app) => {
     });
 
 
-    app.put('/cart', UserAuth, async (req, res, next) => {
-
+    app.put('/cart',UserAuth, async (req,res,next) => {
+        
         const { _id } = req.user;
+        
+        try {     
 
-        try {
-            const { data } = await service.GetProductPayload(_id, { productId: req.body._id, qty: req.body.qty }, "ADD_TO_CART");
+            const { data } = await  service.GetProductPayload(_id, { productId: req.body._id, qty: req.body.qty },'ADD_TO_CART') 
+
             PublishCustomerEvent(data);
-            PublishShoppingEvent(data);
+            PublishShoppingEvent(data)
+
             const response = {
                 product: data.data.product,
-                unit: data.data.qty
+                unit: data.data.qty 
             }
+    
             return res.status(200).json(response);
-
+            
         } catch (err) {
             next(err)
         }
