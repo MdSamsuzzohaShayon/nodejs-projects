@@ -1,8 +1,11 @@
 const express = require('express');
 const { randomBytes } = require('crypto');
+const cors  = require('cors');
+
 const app = express();
 
 // MIDDLEWARE 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

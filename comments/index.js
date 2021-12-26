@@ -1,8 +1,12 @@
 const express = require('express');
 const { randomBytes } = require('crypto');
+const cors = require('cors');
+
+
 const app = express();
 
 // MIDDLEWARE 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -11,7 +15,7 @@ const commentsByPostId = {}; // NO DATABASE INSTEAD WE WILL USE SIMPLE OBJECT
 
 // curl -X GET 'http://localhost:4001/posts/123/comments' --header 'Content-Type:application/json'
 app.get('/posts/:id/comments', (req, res, next) => {
-    res.send(commentsByPostId[req.params.id] || []);
+    res.status(200).json({ comments: commentsByPostId[req.params.id] || [] });
 });
 
 
@@ -25,9 +29,10 @@ app.post('/posts/:id/comments', (req, res, next) => {
     comments.push({ id: commentId, content });
 
     commentsByPostId[req.params.id] = comments;
+    console.log(commentsByPostId);
 
 
-    res.send(comments);
+    res.status(201).json({comments})
 });
 
 
