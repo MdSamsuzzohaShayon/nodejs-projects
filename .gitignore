@@ -1,15 +1,7 @@
 /node_modules
-/monolithic/node_modules
+/client/node_modules
 
-/microservice/products/node_modules
-/microservice/products/.env
-/microservice/products/.env.dev
-/microservice/customer/node_modules
-/microservice/customer/.env
-/microservice/customer/.env.dev
-/microservice/shopping/node_modules
-/microservice/shopping/.env
-/microservice/shopping/.env.dev
-/microservice/gateway/node_modules
-/microservice/gateway/.env
-/microservice/gateway/.env.dev
+/comments/node_modules
+
+/posts/node_modules
+
