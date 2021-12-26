@@ -1,6 +1,7 @@
 const express = require('express');
 const { randomBytes } = require('crypto');
-const cors  = require('cors');
+const axios = require('axios');
+const cors = require('cors');
 
 const app = express();
 
@@ -19,13 +20,37 @@ app.get('/posts', (req, res, next) => {
 
 
 // curl --location --request POST 'localhost:4000/posts' --header 'Content-Type: application/json' --data-raw '{"title": "title 2"}'
-app.post('/posts', (req, res, next) => {
+app.post('/posts', async (req, res, next) => {
     const id = randomBytes(4).toString('hex'); // GENERATE RANDOM  HEXADECIMAL ID
     const { title } = req.body;
 
-    posts[id] = { id, title }
+    posts[id] = { id, title };
 
-    res.status(200).json({ posts: posts[id] });
+
+
+    try {
+        const data = {
+            type: "PostCreated",
+            data: { id, title }
+        }
+
+
+        const response = await axios.post("http://localhost:4005/events", data);
+        console.log(response.data);
+
+
+        res.status(200).json({ posts: posts[id] });
+    } catch (err) {
+        throw new Error(`Error in posts/index.js at /post method - ${err}`);
+    }
+
+
+});
+
+
+app.post('/events', (req, res, next) => {
+    console.log("Receved events - ", req.body.type);
+    res.status(200).json({ request: 'Receved Events - posts' });
 });
 
 
