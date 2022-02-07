@@ -3,3 +3,5 @@
 /02_nodemailer-email-send/node_modules
 /03_mailchimp-send-newsletter/node_modules
 /04_mailchimp-email-marketing/node_modules
+/05_mailchimp-node-react/server/node_modules
+/05_mailchimp-node-react/client/node_modules
