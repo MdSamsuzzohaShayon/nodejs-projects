@@ -1,5 +1,2 @@
 /node_modules
-/react-node-pdf-maker/client/node_modules
-/react-node-pdf-maker/server/node_modules
-/express-pdf/node_modules
-/resume-maker-pdf/node_modules
+/01_nodejs-restif-framework/node_modules
