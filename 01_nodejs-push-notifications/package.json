@@ -1,0 +1,19 @@
+{
+  "name": "push-notifications",
+  "version": "1.0.0",
+  "description": "[*Youtube tutorial*](https://www.youtube.com/watch?v=HlYFW2zaYQM&t=12s)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app",
+    "dev": "nodemon app"
+
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "web-push": "^3.3.3"
+  }
+}
