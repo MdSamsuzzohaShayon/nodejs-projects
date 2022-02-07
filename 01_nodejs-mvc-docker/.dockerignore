@@ -1,0 +1,10 @@
+.git
+node_modules
+books
+screenshots
+Dockerfile
+.dockerignore
+.gitignore
+.env
+.env.example
+docker-compose*

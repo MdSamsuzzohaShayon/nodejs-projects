@@ -1,0 +1,10 @@
+version: "3.9" # we can override anything from here as well
+services:
+  node-book:
+    build: 
+      context: .
+      args: 
+        NODE_ENV: production
+    environment:
+      - NODE_ENV=production
+    command: npm start

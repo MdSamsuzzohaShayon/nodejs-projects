@@ -1,0 +1,36 @@
+<br><br>
+<h2 class="ui header">Search Authors</h2>
+
+<form action="/authors" class="ui form" method="GET">
+    <div class="field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" value="<%= searchOption.name %>">
+    </div>
+    <button class="ui blue button" type="submit">Search</button>
+</form>
+
+
+<% if(authors){ %>
+<table class="ui green table">
+    <thead>
+        <th>Author Name</th>
+        <th>Action</th>
+        <th>Delete</th>
+    </thead>
+    <tbody>
+        <% authors.forEach(author=>{ %>
+            <tr>
+                <td><%= author.name %></td>
+                <td>
+                    <a href="/authors/<%= author.id %>" class="ui mini button blue link inline">View</a>
+                    <a href="/authors/<%= author.id %>/edit" class="ui mini button blue link inline">Edit</a>
+                    
+                </td>
+                <td>
+                    <%- include('../partials/deleteForm', {url: `/authors/${author.id}`}) %>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
+<% } %>

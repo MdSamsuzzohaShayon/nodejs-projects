@@ -1,0 +1,20 @@
+version: "3.9"
+
+# specify all the containers we want to create - each container as service
+services: 
+  # this is our container that we are going to make - we can name it anything
+  node-book:
+    build: . # wat image we are going to use - now this will build image for us
+    ports:
+      # we can open multiple port if we want but here we are going to open only one port
+      - "3000:3000" 
+    # Pass all volumes - in docker compose we don't need to use variable we can use dot syntex
+    volumes: 
+      - ./:/app:ro
+      - /app/node_modules
+    # setting environment variable for single environemnt and file of environement
+    # environment:
+    #   - PORT:3000
+    env_file:
+      - ./config/.env
+

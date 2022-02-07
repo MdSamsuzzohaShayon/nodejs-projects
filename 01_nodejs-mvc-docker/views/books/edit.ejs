@@ -1,0 +1,9 @@
+<h2 class="ui header huge blue">Edit Book</h2>
+<form action="/books/<%= book.id %>?_method=PUT" method="POST" class="ui form">
+  <%- include('_form_fields') %>
+  <br>
+  <div class="ui flex">
+    <a class="ui button blue" href="/books">Cancel</a>
+    <button class="ui button blue" type="submit">Update</button>
+  </div>
+</form>

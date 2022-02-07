@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mybrary</title>
+
+    <!-- https://pqina.nl/filepond/docs/patterns/plugins/image-preview/ -->
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+        rel="stylesheet">
+    <!-- add to document <head> -->
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/semantic.min.css">
+
+
+
+
+    <!-- add before </body> -->
+    <!-- https://pqina.nl/filepond/docs/patterns/plugins/file-encode/ -->
+    <script defer src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+
+    <!-- https://pqina.nl/filepond/docs/patterns/plugins/image-preview/ -->
+    <!-- add before </body> -->
+    <script defer src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+
+    <!-- https://pqina.nl/filepond/docs/patterns/plugins/image-resize/ -->
+    <script defer src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+
+
+    <!-- add before </body> -->
+    <script defer src="https://unpkg.com/filepond/dist/filepond.js"></script>
+
+    <script src="/js/fileUpload.js">
+
+    </script>
+</head>
+
+<body>
+    <%- include('../partials/header.ejs') %>
+    <%- include('../partials/errorMessage.ejs') %>
+    <div class="ui container">
+        <%- body %>
+    </div>
+</body>
+
+</html>

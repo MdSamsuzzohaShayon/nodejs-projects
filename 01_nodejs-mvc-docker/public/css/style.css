@@ -1,0 +1,7 @@
+.inline{
+    display: flex;
+}
+.dlt-btn{
+    padding: 0 !important;
+    margin: 0 !important;
+}

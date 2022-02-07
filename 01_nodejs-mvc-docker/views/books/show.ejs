@@ -1,0 +1,36 @@
+<div class="ui container">
+    <h2 class="ui header huge blue">
+        <%- book.title %>
+    </h2>
+    <div class="ui flex">
+        <a class="ui button blue" href="/books/<%= book.id %>/edit">Edit</a>
+        <div class="ui button dlt-btn"><%- include('../partials/deleteForm', { url: `/books/${book.id}` }) %></div>
+        
+        <a class="ui button blue" href="/authors/<%= book.author.id %>">View Author</a>
+    </div>
+    <p>Author: <i class="ui header tiny blue">
+            <%- book.author.name %>
+        </i></p>
+    <p>Publish: <i class="ui header tiny blue">
+            <%- book.publishDate.toDateString() %>
+        </i></p>
+    <p>Page: <i class="ui header tiny">
+            <%- book.pageCount %>
+        </i></p>
+    <div class="ui divider"></div>
+    <br>
+    <img  id="bookCover" src="<%= book.coverImagePath %>" alt="" class="ui image huge">
+
+
+</div>
+<script>
+    // const bookCoverImg = document.getElementById('bookCover');
+
+    // const bookCover = '<%- JSON.stringify(book.coverImage) %>';
+    // // const bufferCover = JSON.parse(bookCover);
+    // // bookCoverImg.src = 'data:image/jpeg;base64,' + bookCover.toString('base64');
+    // // bookCoverImg.after()
+    // // "data:image/png;base64,
+    // // ,src:`data:image/png;base64,${toBase64( selected[0].image2.data)}`
+    // console.log(JSON.parse(bookCover));
+</script>

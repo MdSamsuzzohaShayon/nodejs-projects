@@ -1,0 +1,34 @@
+<br><br>
+<h2 class="ui header">Search Books</h2>
+
+<form action="/books" class="ui form" method="GET">
+    <div class="field">
+        <label for="name">Title</label>
+        <input type="text" name="title" id="name" value="<%= searchOption.title %>">
+    </div>
+    <div class="ui two fields">
+        <div class="field">
+            <label for="publishedAfter">Publish After</label>
+            <input type="date" name="publishedAfter" id="publishedAfter" value="<%= searchOption.publishedAfter %>">
+        </div>
+        <div class="field">
+            <label for="publishedBefore">Publish Before</label>
+            <input type="date" name="publishedBefore" id="publishedBefore" value="<%= searchOption.publishedBefore %>">
+        </div>
+    </div>
+    <button class="ui blue button" type="submit">Search</button>
+</form>
+
+<br>
+<br>
+<br>
+
+<% if(books){ %>
+<div class="ui small stackable images">
+    <% books.forEach(book=>{ %>
+    <a href="/books/<%= book.id %>">
+        <img src="<%= book.coverImagePath %>" alt="Image" class="ui image">
+    </a>
+    <% }) %>
+</div>
+<% } %>
