@@ -1,2 +1,5 @@
 /node_modules
+/01_nodejs-push-notifications/node_modules
+/02_nodemailer-email-send/node_modules
 /03_mailchimp-send-newsletter/node_modules
+/04_mailchimp-email-marketing/node_modules
