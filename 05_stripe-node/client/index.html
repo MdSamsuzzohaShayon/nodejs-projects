@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Buy cool new product</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<body>
+    <section>
+        <div class="product">
+            <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+            <div class="description">
+                <h3>Stubborn Attachments</h3>
+                <h5>$20.00</h5>
+            </div>
+        </div>
+        <form action="/create-checkout-session" method="POST">
+            <button type="submit" id="checkout-button">Checkout</button>
+        </form>
+    </section>
+
+
+    <section>
+        <div class="custom-checkout">
+            <h2>Customer checkout</h2>
+            <button id="btn">Submit</button>
+        </div>
+    </section>
+
+    <script>
+        const PUBLISHABLE_KEY = 'pk_test_51E42CcE15Lqo4v04jca8of9xtNQfWETySIXDankfgVUJ6L2riz9l1fr3EKBz8P3hTj4XMaLjxDxOOknfyRM3VU9K005TVA2YMl';
+        const stripe = Stripe(PUBLISHABLE_KEY);
+
+
+        const btn = document.getElementById('btn');
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            fetch('/my-route', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    test: 123,
+                    peyment_method: "pm_card_visa",
+                    address: {
+                        line1: '123 main st'
+                    }
+                })
+            })
+                .then(res => res.json())
+                .then(data => console.log(data))
+                .catch(err => console.log(err));
+        });
+    </script>
+</body>
+
+</html>
